@@ -1,0 +1,43 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Map.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "Map.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 437.3333333333333,
+                "y": 1304
+            }
+        },
+        "Map.tmx#pipoya": {
+            "scaleInDock": 1
+        },
+        "Map.tmx#plant": {
+            "scaleInDock": 1
+        },
+        "Map.tmx#village32x32": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "/Users/qianlingtan/MA1/Map/asset",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+        "Map.tmx"
+    ],
+    "project": "Map.tiled-project",
+    "recentFiles": [
+        "Map.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.margin": 0,
+    "tileset.spacing": 0
+}
