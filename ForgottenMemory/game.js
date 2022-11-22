@@ -19,3 +19,10 @@
 };
 
 var game = new Phaser.Game(config);
+window.potion1 = true;
+window.potion2 = true;
+window.potion3 = true;
+window.potion4 = true;
+window.potion5 = true;
+
+

@@ -38,21 +38,45 @@ class room1 extends Phaser.Scene {
     var outside = map.findObject('objLayer_2',(obj)=> obj.name ==="outRoom1")
 
     this.time.addEvent({
-        delay: 1000,
+        delay: 0,
         callback: this.moveDownUp,
+        callbackScope: this,
+        loop: false,
+      });
+
+      this.time.addEvent({
+        delay: 0,
+        callback: this.moveDownUp2,
+        callbackScope: this,
+        loop: false,
+      });
+
+      this.time.addEvent({
+        delay: 0,
+        callback: this.moveRightLeft,
+        callbackScope: this,
+        loop: false,
+      });
+
+      this.time.addEvent({
+        delay: 0,
+        callback: this.moveRightLeft2,
         callbackScope: this,
         loop: false,
       });
     
     this.cursors =this.input.keyboard.createCursorKeys();
     this.player= this.physics.add.sprite(inside.x, inside.y,'girl').play("girl_right")
-    this.memory = this.physics.add.sprite(885, 544, "memory").play("memory_floating");
-    this.memory = this.physics.add.sprite(912, 290, "memory").play("memory_floating");
-    this.memory = this.physics.add.sprite(112, 128, "memory").play("memory_floating");
-    this.enemy = this.physics.add.sprite(823, 864, "enemy").play("enemy_frontback");
+    this.memory1 = this.physics.add.sprite(885, 544, "memory").play("memory_floating");
+    this.memory2 = this.physics.add.sprite(912, 290, "memory").play("memory_floating");
+    this.memory3 = this.physics.add.sprite(112, 128, "memory").play("memory_floating");
+    this.enemy1 = this.physics.add.sprite(823, 864, "enemy").play("enemy_frontback");
+    this.enemy2 = this.physics.add.sprite(200, 301, "enemy").play("enemy_left");
+    this.enemy3 = this.physics.add.sprite(690, 707, "enemy").play("enemy_frontback");
+    this.enemy4 = this.physics.add.sprite(117, 612, "enemy").play("enemy_right");
     window.player = this.player
 
-    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.9 )
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.3 )
 
 
     // Add time event / movement here
@@ -67,7 +91,14 @@ class room1 extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player);
 
-    // this.physics.add.overlap(this.player, this.memory, collectMemory, null, this);
+    this.physics.add.overlap(this.player, this.memory1, this.collectMemory, null, this);
+    this.physics.add.overlap(this.player, this.memory2, this.collectMemory, null, this);
+    this.physics.add.overlap(this.player, this.memory3, this.collectMemory, null, this);
+    this.physics.add.overlap(this.player, this.enemy1, this.beingAttacked, null, this);
+    this.physics.add.overlap(this.player, this.enemy2, this.beingAttacked, null, this);
+    this.physics.add.overlap(this.player, this.enemy3, this.beingAttacked, null, this);
+    this.physics.add.overlap(this.player, this.enemy4, this.beingAttacked, null, this);
+
     }
 
     update() {
@@ -109,13 +140,13 @@ class room1 extends Phaser.Scene {
     this.scene.start("world")
   }
 
-   moveDownUp() {
+  moveDownUp() {
   console.log("moveDownUp");
   this.tweens.timeline({
-    targets: this.enemy,
+    targets: this.enemy1,
     ease: "Linear",
     loop: -1, // loop forever
-    duration: 3000,
+    duration: 2000,
     tweens: [
       {
         y: 896,
@@ -127,15 +158,70 @@ class room1 extends Phaser.Scene {
   });
 }
 
-// collectMemory (player, memory)
+moveDownUp2() {
+  console.log("moveDownUp");
+  this.tweens.timeline({
+    targets: this.enemy3,
+    ease: "Linear",
+    loop: -1, // loop forever
+    duration: 8000,
+    tweens: [
+      {
+        y: 284,
+      },
+      {
+        y: 707,
+      },
+    ],
+  });
+}
 
-// {
-//     memory.disableBody(true, true);
+moveRightLeft() {
+  console.log("moveDownUp");
+  this.tweens.timeline({
+    targets: this.enemy2,
+    loop: -1, // loop forever
+    ease: "Linear",
+    duration: 6000,
+    tweens: [
+      {
+        x: 568,
+      },
+      {
+        x: 200,
+      },
+    ],
+  });
+}
 
-//     //shaking screen effects
-//     this.cameras.main.shake(300);
-    
-// }
+moveRightLeft2() {
+  console.log("moveDownUp");
+  this.tweens.timeline({
+    targets: this.enemy4,
+    loop: -1, // loop forever
+    ease: "Linear",
+    duration: 5000,
+    tweens: [
+      {
+        x: 536,
+      },
+      {
+        x: 117,
+      },
+    ],
+  });
+}
+
+//overlap
+collectMemory(player,memory) {
+  console.log('collect memory')
+  memory.disableBody (true,true)
+}
+
+beingAttacked(player,enenmy) {
+  console.log('hit by enemy')
+  this.cameras.main.shake(500);
+}
 
 }  //////////// end of class world ////////////////////////
 

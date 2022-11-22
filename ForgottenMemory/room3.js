@@ -42,7 +42,21 @@ class room3 extends Phaser.Scene {
 
       this.time.addEvent({
         delay: 1000,
+        callback: this.moveDownUp2,
+        callbackScope: this,
+        loop: false,
+      });
+
+      this.time.addEvent({
+        delay: 1000,
         callback: this.moveRightLeft,
+        callbackScope: this,
+        loop: false,
+      });
+
+      this.time.addEvent({
+        delay: 1000,
+        callback: this.moveRightLeft2,
         callbackScope: this,
         loop: false,
       });
@@ -52,16 +66,28 @@ class room3 extends Phaser.Scene {
     
     this.cursors =this.input.keyboard.createCursorKeys();
     this.player= this.physics.add.sprite(inside.x, inside.y,'girl').play("girl_left")
-    this.memory = this.physics.add.sprite(888, 130, "memory").play("memory_floating");
-    this.memory = this.physics.add.sprite(871, 899, "memory").play("memory_floating");
-    this.memory = this.physics.add.sprite(248, 877, "memory").play("memory_floating");
-    this.enemy = this.physics.add.sprite(144, 572, "enemy").play("enemy_frontback");
-    // this.enemy2 = this.physics.add.sprite(362, 467, "enemy").play("enemy_frontback");
-    // this.enemy3 = this.physics.add.sprite(711, 213, "enemy").play("enemy_frontback");
+
+    this.memory1 = this.physics.add.sprite(888, 130, "memory").play("memory_floating");
+    this.memory2 = this.physics.add.sprite(871, 899, "memory").play("memory_floating");
+    this.memory3 = this.physics.add.sprite(248, 877, "memory").play("memory_floating");
+
+    this.enemy1 = this.physics.add.sprite(104, 714, "enemy").play("enemy_left");
+    this.enemy2 = this.physics.add.sprite(741, 124, "enemy").play("enemy_frontback");
+    this.enemy3 = this.physics.add.sprite(461, 232, "enemy").play("enemy_right");
+    this.enemy4 = this.physics.add.sprite(598, 913, "enemy").play("enemy_frontback");
+
     window.player = this.player
 
-    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.9 )
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.3 )
 
+    this.physics.add.overlap(this.player, this.memory1, this.collectMemory, null, this);
+    this.physics.add.overlap(this.player, this.memory2, this.collectMemory, null, this);
+    this.physics.add.overlap(this.player, this.memory3, this.collectMemory, null, this);
+
+    this.physics.add.overlap(this.player, this.enemy1, this.beingAttacked, null, this);
+    this.physics.add.overlap(this.player, this.enemy2, this.beingAttacked, null, this);
+    this.physics.add.overlap(this.player, this.enemy3, this.beingAttacked, null, this);
+    this.physics.add.overlap(this.player, this.enemy4, this.beingAttacked, null, this);
 
     // Add time event / movement here
 
@@ -115,37 +141,37 @@ class room3 extends Phaser.Scene {
     this.scene.start("world")
   }
 
-  moveDownUp() {
-    console.log("moveDownUp");
-    this.tweens.timeline({
-      targets: this.enemy,
-      ease: "Linear",
-      loop: -1, // loop forever
-      duration: 5000,
-      tweens: [
-        {
-          y: 899,
-        },
-        {
-          y: 572,
-        },
-      ],
-    });
-  }
-
    moveRightLeft() {
+  console.log("moveDownUp");
+  this.tweens.timeline({
+    targets: this.enemy1,
+    loop: -1, // loop forever
+    ease: "Linear",
+    duration: 6000,
+    tweens: [
+      {
+        x: 408,
+      },
+      {
+        x: 104,
+      },
+    ],
+  });
+}
+
+moveRightLeft2() {
   console.log("moveDownUp");
   this.tweens.timeline({
     targets: this.enemy3,
     loop: -1, // loop forever
     ease: "Linear",
-    duration: 1000,
+    duration: 6000,
     tweens: [
       {
-        x: 597,
+        x: 136,
       },
       {
-        x: 362,
+        x: 461,
       },
     ],
   });
@@ -154,19 +180,49 @@ class room3 extends Phaser.Scene {
   moveDownUp() {
     console.log("moveDownUp");
     this.tweens.timeline({
-      targets: this.enemy3,
+      targets: this.enemy2,
       ease: "Linear",
       loop: -1, // loop forever
-      duration: 5000,
+      duration: 3000,
       tweens: [
         {
           y: 323,
         },
         {
-          y: 213,
+          y: 124,
         },
       ],
     });
   }
+
+    moveDownUp2() {
+    console.log("moveDownUp");
+    this.tweens.timeline({
+      targets: this.enemy4,
+      ease: "Linear",
+      loop: -1, // loop forever
+      duration: 5000,
+      tweens: [
+        {
+          y: 425,
+        },
+        {
+          y: 913,
+        },
+      ],
+    });
+  }
+
+  //overlap
+  collectMemory(player,memory) {
+    console.log('collect memory')
+    memory.disableBody (true,true)
+  }
+
+  beingAttacked(player,enemy) {
+    console.log('hit by enemy')
+    this.cameras.main.shake(500);
+  }
+
 }  //////////// end of class world ////////////////////////
 

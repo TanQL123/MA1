@@ -83,7 +83,7 @@ preload() {
         key:'potion_floating',
         frames:this.anims.generateFrameNumbers('potion',
         { start:0, end:1 }),
-        frameRate:5,
+        frameRate:1,
         repeat:-1
     });
 

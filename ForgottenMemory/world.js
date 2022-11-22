@@ -30,12 +30,50 @@ class world extends Phaser.Scene {
     
     this.cursors =this.input.keyboard.createCursorKeys();
     this.player= this.physics.add.sprite(200,200,'girl').play("girl_down")
-    this.potion = this.physics.add.sprite(746, 448, "potion").play("potion_floating");
-    this.potion = this.physics.add.sprite(80, 800, "potion").play("potion_floating");
-    this.potion = this.physics.add.sprite(80, 320, "potion").play("potion_floating");
-    this.potion = this.physics.add.sprite(720, 96, "potion").play("potion_floating");
-    this.potion = this.physics.add.sprite(944, 928, "potion").play("potion_floating");
+    this.potion1 = this.physics.add.sprite(746, 448, "potion").play("potion_floating");
+    this.potion2 = this.physics.add.sprite(80, 800, "potion").play("potion_floating");
+    this.potion3 = this.physics.add.sprite(80, 320, "potion").play("potion_floating");
+    this.potion4 = this.physics.add.sprite(720, 96, "potion").play("potion_floating");
+    this.potion5 = this.physics.add.sprite(944, 928, "potion").play("potion_floating");
     window.player = this.player;
+
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.9 )
+
+    this.physics.add.overlap(this.player, this.potion1, this.collectPotion1, null, this);
+    this.physics.add.overlap(this.player, this.potion2, this.collectPotion2, null, this);
+    this.physics.add.overlap(this.player, this.potion3, this.collectPotion3, null, this);
+    this.physics.add.overlap(this.player, this.potion4, this.collectPotion4, null, this);
+    this.physics.add.overlap(this.player, this.potion5, this.collectPotion5, null, this);
+
+    if (window.potion1 != false) {
+      this.potion1.setVisible(true)
+    } else {
+      this.potion1.disableBody(true,true)
+    }
+
+    if (window.potion2 != false) {
+      this.potion2.setVisible(true)
+    } else {
+      this.potion2.disableBody(true,true)
+    }
+
+    if (window.potion3 != false) {
+      this.potion3.setVisible(true)
+    } else {
+      this.potion3.disableBody(true,true)
+    }
+
+    if (window.potion4 != false) {
+      this.potion4.setVisible(true)
+    } else {
+      this.potion4.disableBody(true,true)
+    }
+
+    if (window.potion5 != false) {
+      this.potion5.setVisible(true)
+    } else {
+      this.potion5.disableBody(true,true)
+    }
 
     // Add time event / movement here
 
@@ -97,7 +135,7 @@ class world extends Phaser.Scene {
         this.player.anims.play('girl_down',true);
     }
     else
-    {
+    {   
         this.player.setVelocity(0);
     }
   } /////////////////// end of update //////////////////////////////
@@ -118,6 +156,37 @@ class world extends Phaser.Scene {
   room3(player, tile) {
     console.log("room3,function")
     this.scene.start("room3")
+  }
+
+  //Collect potion
+  collectPotion1(player,potion) {
+    console.log('collect potion')
+    potion.disableBody (true,true)
+    window.potion1 = false
+  }
+
+  collectPotion2(player,potion) {
+    console.log('collect potion')
+    potion.disableBody (true,true)
+    window.potion2 = false
+  }
+
+  collectPotion3(player,potion) {
+    console.log('collect potion')
+    potion.disableBody (true,true)
+    window.potion3 = false
+  }
+
+  collectPotion4(player,potion) {
+    console.log('collect potion')
+    potion.disableBody (true,true)
+    window.potion4 = false
+  }
+
+  collectPotion5(player,potion) {
+    console.log('collect potion')
+    potion.disableBody (true,true)
+    window.potion5 = false
   }
 
 } //////////// end of class world ////////////////////////
