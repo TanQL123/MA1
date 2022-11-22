@@ -31,12 +31,19 @@ class room2 extends Phaser.Scene {
 
     this.groundLayer = map.createLayer("groundLayer",tilesArray,0,0);
     this.borderLayer = map.createLayer("borderLayer",tilesArray,0,0);
+    this.top_decoLayer = map.createLayer('top_decoLayer',tilesArray,0,0);
 
-    var start = map.findObject("objectLayer",(obj) => obj.name === "start");
+    var inside = map.findObject("objLayer_1",(obj) => obj.name === "inRoom2");
+    var outside = map.findObject("objLayer_2",(obj) => obj.name === "outRoom2");
     
     this.cursors =this.input.keyboard.createCursorKeys();
-    this.player= this.physics.add.sprite(start.x, start.y,'girl').play("girl_up")
+    this.player= this.physics.add.sprite(inside.x, inside.y,'girl').play("girl_down")
+    this.memory = this.physics.add.sprite(704, 259, "memory").play("memory_floating");
+    this.memory = this.physics.add.sprite(920, 899, "memory").play("memory_floating");
+    this.memory = this.physics.add.sprite(165, 508, "memory").play("memory_floating");
     window.player = this.player
+
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.9 )
 
 
     // Add time event / movement here
@@ -54,7 +61,7 @@ class room2 extends Phaser.Scene {
 
     update() {
 
-        if (this.player.x > 580 && this.player.x < 673 && this.player.y < 765 && this.player.y > 736) {
+        if (this.player.x > 429 && this.player.x < 464 && this.player.y < 896 && this.player.y > 864) {
             console.log("Jump to world")
             this.world();
           }
@@ -91,4 +98,5 @@ class room2 extends Phaser.Scene {
     this.scene.start("world")
   }
 
-}
+}  //////////// end of class world ////////////////////////
+

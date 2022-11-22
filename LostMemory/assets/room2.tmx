@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
- <tileset firstgid="1" name="pippoya" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
-  <image source="00_Tiled Map/room3/asset/pippoya.png" width="256" height="4256"/>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="5">
+ <editorsettings>
+  <export target="room2.tmj" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="pipoya" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
+  <image source="pipoya.png" width="256" height="4256"/>
  </tileset>
  <layer id="1" name="groundLayer" width="32" height="32">
   <data encoding="csv">
@@ -111,4 +114,14 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="5" name="objLayer_1">
+  <object id="1" name="inRoom2" x="462.667" y="149.333">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="objLayer_2">
+  <object id="4" name="outRoom2" x="461.333" y="886.667">
+   <point/>
+  </object>
+ </objectgroup>
 </map>

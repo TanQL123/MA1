@@ -15,7 +15,7 @@
     // },
     backgroundColor: '#000000',
     pixelArt: true,
-    scene: [preloadScene,world, room1, room2, room3]
+    scene: [preload, main, room1, world, room2, room3]
 };
 
 var game = new Phaser.Game(config);

@@ -173,9 +173,55 @@
          "width":32,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"objLayer_1",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":2,
+                 "name":"inRoom1",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":112,
+                 "y":888
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":6,
+         "name":"objLayer_2",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":6,
+                 "name":"outRoom1",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":878.666666666667,
+                 "y":153.333333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":5,
- "nextobjectid":1,
+ "nextlayerid":7,
+ "nextobjectid":7,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
@@ -184,11 +230,11 @@
         {
          "columns":8,
          "firstgid":1,
-         "image":"00_Tiled Map\/room3\/asset\/pippoya.png",
+         "image":"pipoya.png",
          "imageheight":4256,
          "imagewidth":256,
          "margin":0,
-         "name":"pippoya",
+         "name":"pipoya",
          "spacing":0,
          "tilecount":1064,
          "tileheight":32,
