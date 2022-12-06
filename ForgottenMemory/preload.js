@@ -44,6 +44,8 @@ preload() {
     this.load.image('victory','assets/copywriting-17.png');
     this.load.image('v_caption','assets/copywriting-18.png');
     this.load.image('mainMenu','assets/copywriting-19.png');
+    this.load.image('name','assets/name-16.png');
+
 
     this.load.image('v_caption2','assets/Writing-16.png');
     this.load.image('text_1','assets/Writing-17.png');
@@ -71,6 +73,7 @@ preload() {
         this.add.image(1000,530,'cloud4').setScale(0.6);
         this.add.image(750,600, 'title').setScale(0.5);
         this.add.image(710,800, 'title_spacebar').setScale(0.2);
+        this.add.image(730,650, 'name').setScale(0.2);
         
 
         var spaceDown = this.input.keyboard.addKey('SPACE');
