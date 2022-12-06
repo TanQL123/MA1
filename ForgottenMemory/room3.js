@@ -22,6 +22,16 @@ class room3 extends Phaser.Scene {
 
     create() {
         console.log('*** room3 scene');
+
+        this.scene.launch('showInventory');
+
+        // Call to update inventory
+        this.time.addEvent({
+          delay: 500,
+          callback: updateInventory,
+          callbackScope: this,
+          loop: false,
+          });
         
         let map = this.make.tilemap({ key: "room3" });
 
@@ -67,9 +77,9 @@ class room3 extends Phaser.Scene {
     this.cursors =this.input.keyboard.createCursorKeys();
     this.player= this.physics.add.sprite(inside.x, inside.y,'girl').play("girl_left")
 
-    this.memory1 = this.physics.add.sprite(888, 130, "memory").play("memory_floating");
-    this.memory2 = this.physics.add.sprite(871, 899, "memory").play("memory_floating");
-    this.memory3 = this.physics.add.sprite(248, 877, "memory").play("memory_floating");
+    this.memory7 = this.physics.add.sprite(888, 130, "memory").play("memory_floating").setVisible(false);
+    this.memory8 = this.physics.add.sprite(871, 899, "memory").play("memory_floating").setVisible(false);
+    this.memory9 = this.physics.add.sprite(248, 877, "memory").play("memory_floating").setVisible(false);
 
     this.enemy1 = this.physics.add.sprite(104, 714, "enemy").play("enemy_left");
     this.enemy2 = this.physics.add.sprite(741, 124, "enemy").play("enemy_frontback");
@@ -78,16 +88,34 @@ class room3 extends Phaser.Scene {
 
     window.player = this.player
 
-    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.3 )
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.9 )
 
-    this.physics.add.overlap(this.player, this.memory1, this.collectMemory, null, this);
-    this.physics.add.overlap(this.player, this.memory2, this.collectMemory, null, this);
-    this.physics.add.overlap(this.player, this.memory3, this.collectMemory, null, this);
+    this.physics.add.overlap(this.player, this.memory7, this.collectMemory7, null, this);
+    this.physics.add.overlap(this.player, this.memory8, this.collectMemory8, null, this);
+    this.physics.add.overlap(this.player, this.memory9, this.collectMemory9, null, this);
 
-    this.physics.add.overlap(this.player, this.enemy1, this.beingAttacked, null, this);
-    this.physics.add.overlap(this.player, this.enemy2, this.beingAttacked, null, this);
-    this.physics.add.overlap(this.player, this.enemy3, this.beingAttacked, null, this);
-    this.physics.add.overlap(this.player, this.enemy4, this.beingAttacked, null, this);
+    this.physics.add.overlap(this.player, this.enemy1, enemyAttack, null, this);
+    this.physics.add.overlap(this.player, this.enemy2, enemyAttack, null, this);
+    this.physics.add.overlap(this.player, this.enemy3, enemyAttack, null, this);
+    this.physics.add.overlap(this.player, this.enemy4, enemyAttack, null, this);
+
+    if (window.memory7 != false) {
+      this.memory7.setVisible(true)
+    } else {
+      this.memory7.disableBody(true,true)
+    }
+
+    if (window.memory8 != false) {
+      this.memory8.setVisible(true)
+    } else {
+      this.memory8.disableBody(true,true)
+    }
+
+    if (window.memory9 != false) {
+      this.memory9.setVisible(true)
+    } else {
+      this.memory9.disableBody(true,true)
+    }
 
     // Add time event / movement here
 
@@ -97,6 +125,9 @@ class room3 extends Phaser.Scene {
     this.borderLayer.setCollisionByExclusion(-1, true)
 
     this.physics.add.collider(this.player,this.borderLayer);
+
+    this.physics.world.bounds.width = this.groundLayer. width;
+    this.physics.world.bounds.height = this.groundLayer. height;
 
     this.player.setCollideWorldBounds(true);
     this.cameras.main.startFollow(this.player);
@@ -131,15 +162,20 @@ class room3 extends Phaser.Scene {
     }
     else
     {
+      this.player.stop();
         this.player.setVelocity(0);
     }
     }
 
     //Function to jump to world
-  world(player, tile) {
-    console.log("world,function")
-    this.scene.start("world")
-  }
+    world(player, tile) {
+      console.log("world,function")
+      player = {};
+      player.x = 741;
+      player.y = 875;
+  
+      this.scene.start("world", {player: player})
+    }
 
    moveRightLeft() {
   console.log("moveDownUp");
@@ -214,9 +250,46 @@ moveRightLeft2() {
   }
 
   //overlap
-  collectMemory(player,memory) {
-    console.log('collect memory')
-    memory.disableBody (true,true)
+  collectMemory7(player,memory) {
+    window.memory7 = false
+    window.memories++
+    memory.disableBody(true, true);
+    
+    //this.updateInventory()
+    updateInventory.call(this)
+
+    if (window.memories == 9){
+      this.scene.start("victory");
+      // this.loseSound.play();
+    }
+  }
+  
+  collectMemory8(player,memory) {
+    window.memory8 = false
+    window.memories++
+    memory.disableBody(true, true);
+    
+    //this.updateInventory()
+    updateInventory.call(this)
+
+    if (window.memories == 9){
+      this.scene.start("victory");
+      // this.loseSound.play();
+    }
+  }
+  
+  collectMemory9(player,memory) {
+    window.memory9 = false
+    window.memories++
+    memory.disableBody(true, true);
+    
+    //this.updateInventory()
+    updateInventory.call(this)
+
+    if (window.memories == 9){
+      this.scene.start("victory");
+      // this.loseSound.play();
+    }
   }
 
   beingAttacked(player,enemy) {

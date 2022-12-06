@@ -1,8 +1,8 @@
-class main extends Phaser.Scene {
+class intro3 extends Phaser.Scene {
 
     constructor() {
         super({
-            key: 'main'
+            key: 'intro3'
         });
 
         // Put global variable here
@@ -13,7 +13,7 @@ class main extends Phaser.Scene {
         // Preload all the assets here
 
         // Preload any images here
-
+        this.load.image('text_1','assets/Writing-17.png');
         // Preload any sound and music here
         // this.load.audio('ping', 'assets/ping.mp3');
         // this.load.audio('bgMusic', 'assets/bgMusic.mp3');
@@ -21,7 +21,7 @@ class main extends Phaser.Scene {
 
     create() {
 
-        console.log('*** main scene');
+        console.log('*** intro3 scene');
 
         // Add any sound and music here
         // ( 0 = mute to 1 is loudest )
@@ -33,6 +33,11 @@ class main extends Phaser.Scene {
 
         // Add image and detect spacebar keypress
         //this.add.image(0, 0, 'main').setOrigin(0, 0);
+        this.add.image(0,0, 'background').setOrigin(0,0).setScale(2);
+        this.add.image(710,450, 'text_3').setScale(0.2);
+        this.add.image(710,800, 'spacebar').setScale(0.2);
+
+
 
         // Check for spacebar or any key here
         var spaceDown = this.input.keyboard.addKey('SPACE');
@@ -41,7 +46,7 @@ class main extends Phaser.Scene {
         spaceDown.on('down', function () {
             // console.log('Jump to world scene');
 
-            this.scene.start('world',
+            this.scene.start('intro4',
                 // Optional parameters
                 {
 
@@ -51,10 +56,10 @@ class main extends Phaser.Scene {
 
 
         // Add any text in the main page
-        this.add.text(90, 600, 'Press spacebar to continue', {
-            font: '30px Courier',
-            fill: '#FFFFFF'
-        });
+        // this.add.text(90, 600, 'Press spacebar to continue', {
+        //     font: '30px Courier',
+        //     fill: '#FFFFFF'
+        // });
 
 
         // Create all the game animations here

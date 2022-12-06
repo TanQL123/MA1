@@ -6,6 +6,11 @@ class world extends Phaser.Scene {
 
     // Global variable
   }
+    //incoming data from scene below
+    init(data) {
+      this.player = data.player
+    }
+
 
   preload() {
 
@@ -18,6 +23,18 @@ class world extends Phaser.Scene {
   create() {
     console.log("*** world");
 
+    this.collectSound = this.sound.add('collect').setVolume(0.5);
+
+    this.scene.launch ('showInventory');
+
+    // Call to update inventory
+    this.time.addEvent({
+      delay: 500,
+      callback: updateInventory,
+      callbackScope: this,
+      loop: false,
+      });
+
     let map = this.make.tilemap({ key: "main" });
 
     let pipoyaTiles = map.addTilesetImage("pipoya", "Pipoya");
@@ -29,7 +46,7 @@ class world extends Phaser.Scene {
     this.decoLayer = map.createLayer("decoLayer",tilesArray,0,0);
     
     this.cursors =this.input.keyboard.createCursorKeys();
-    this.player= this.physics.add.sprite(200,200,'girl').play("girl_down")
+    this.player= this.physics.add.sprite(this.player.x, this.player.y, 'girl').play("girl_down")
     this.potion1 = this.physics.add.sprite(746, 448, "potion").play("potion_floating");
     this.potion2 = this.physics.add.sprite(80, 800, "potion").play("potion_floating");
     this.potion3 = this.physics.add.sprite(80, 320, "potion").play("potion_floating");
@@ -39,11 +56,13 @@ class world extends Phaser.Scene {
 
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.9 )
 
-    this.physics.add.overlap(this.player, this.potion1, this.collectPotion1, null, this);
-    this.physics.add.overlap(this.player, this.potion2, this.collectPotion2, null, this);
-    this.physics.add.overlap(this.player, this.potion3, this.collectPotion3, null, this);
-    this.physics.add.overlap(this.player, this.potion4, this.collectPotion4, null, this);
-    this.physics.add.overlap(this.player, this.potion5, this.collectPotion5, null, this);
+    this.physics.add.overlap(this.player, this.potion1, collectPotion, null, this);
+    this.physics.add.overlap(this.player, this.potion2, collectPotion, null, this);
+    this.physics.add.overlap(this.player, this.potion3, collectPotion, null, this);
+    this.physics.add.overlap(this.player, this.potion4, collectPotion, null, this);
+    this.physics.add.overlap(this.player, this.potion5, collectPotion, null, this);
+
+    
 
     if (window.potion1 != false) {
       this.potion1.setVisible(true)
@@ -92,6 +111,9 @@ class world extends Phaser.Scene {
 
     this.physics.add.collider(this.player,this.borderLayer);
 
+    this.physics.world.bounds.width = this.groundLayer. width;
+    this.physics.world.bounds.height = this.groundLayer. height;
+
     this.player.setCollideWorldBounds(true);
 
     this.cameras.main.startFollow(this.player);
@@ -136,7 +158,8 @@ class world extends Phaser.Scene {
     }
     else
     {   
-        this.player.setVelocity(0);
+        this.player.stop();
+          this.player.setVelocity(0);
     }
   } /////////////////// end of update //////////////////////////////
 
@@ -163,6 +186,9 @@ class world extends Phaser.Scene {
     console.log('collect potion')
     potion.disableBody (true,true)
     window.potion1 = false
+
+    //play Sound
+    // this.collectSound.play();
   }
 
   collectPotion2(player,potion) {
