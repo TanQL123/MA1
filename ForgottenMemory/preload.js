@@ -73,7 +73,8 @@ preload() {
         this.add.image(1000,530,'cloud4').setScale(0.6);
         this.add.image(750,600, 'title').setScale(0.5);
         this.add.image(710,800, 'title_spacebar').setScale(0.2);
-        this.add.image(730,650, 'name').setScale(0.2);
+        this.add.image(710,650, 'name').setScale(0.2);
+        
         
 
         var spaceDown = this.input.keyboard.addKey('SPACE');
